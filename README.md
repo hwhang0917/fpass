@@ -1,6 +1,6 @@
-# .gokey
+# FPass
 
-Gokey wrapper for password generation and clipboard copying.
+FPass is a Gokey wrapper for password generation and clipboard copying.
 
 ## Prerequisites
 
@@ -8,18 +8,17 @@ Gokey wrapper for password generation and clipboard copying.
 - [cross-copy](https://github.com/hwhang0917/dotfiles/blob/master/scripts/.local/bin/cross-copy) (or substitute your own clipboard tool)
 
 ## Installation
-```bash
-# Clone to ~/.gokey
-git clone https://github.com/hwhang0917/.gokey.git ~/.gokey
 
+TODO
+
+## Setup
+
+```bash
 # Generate master password
 openssl rand -hex 32 > ~/.gokey/master-password
 
 # Generate seedfile
 gokey -P ~/.gokey/master-password -t seed -o ~/.gokey/seedfile
-
-# Symlink to PATH
-ln -s ~/.gokey/fpass ~/.local/bin/fpass
 ```
 
 ## Usage
