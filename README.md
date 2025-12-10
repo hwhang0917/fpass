@@ -5,7 +5,6 @@ FPass is a Gokey wrapper for password generation and clipboard copying.
 ## Prerequisites
 
 - [gokey](https://github.com/cloudflare/gokey)
-- [cross-copy](https://github.com/hwhang0917/dotfiles/blob/master/scripts/.local/bin/cross-copy) (or substitute your own clipboard tool)
 
 ## Installation
 

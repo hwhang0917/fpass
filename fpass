@@ -51,8 +51,24 @@ Configuration:
 
 Dependencies:
     - gokey: https://github.com/cloudflare/gokey
-    - cross-copy: https://github.com/hwhang0917/dotfiles
 EOF
+}
+
+copy_to_clipboard() {
+    local content="$1"
+
+    if command -v pbcopy &>/dev/null; then
+        echo -n "$content" | pbcopy
+    elif command -v xclip &>/dev/null; then
+        echo -n "$content" | xclip -selection clipboard
+    elif command -v wl-copy &>/dev/null; then
+        echo -n "$content" | wl-copy
+    elif command -v clip &>/dev/null; then
+        echo -n "$content" | clip
+    else
+        log_error "No clipboard utility found (pbcopy, xclip, wl-copy, or clip)"
+        return 1
+    fi
 }
 
 check_command() {
@@ -98,7 +114,6 @@ check_dependencies() {
     local has_errors=0
 
     check_command "gokey" "https://github.com/cloudflare/gokey" || has_errors=1
-    check_command "cross-copy" "https://github.com/hwhang0917/dotfiles" || has_errors=1
 
     return $has_errors
 }
@@ -204,8 +219,8 @@ main() {
         gokey_cmd+=(-l "$length")
     fi
 
-    # Run gokey and pipe to cross-copy
-    if "${gokey_cmd[@]}" | cross-copy; then
+    # Run gokey and copy output to clipboard
+    if "${gokey_cmd[@]}" | copy_to_clipboard; then
         log_success "Key generated and copied to clipboard for realm: $realm"
     else
         log_error "Failed to generate or copy key"
